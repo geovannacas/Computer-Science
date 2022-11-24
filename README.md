@@ -1,4 +1,4 @@
-# **University**
+# **Computer Science**
 
 ## **Introduction to programming:**
 
