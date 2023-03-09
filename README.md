@@ -2,7 +2,4 @@
 
 ## **Introduction to programming:**
 
-- Lista 1A
-- Lista 1B
-- Prova 1
-- Lista 2
+- Lista 1 à 5
