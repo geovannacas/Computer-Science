@@ -1,5 +1,5 @@
 # **Computer Science**
 
-## **Introduction to programming:**
+## **- Introduction to programming (IP)**
 
-- Lista 1 à 5
+## **- Algorithms and Data Structure 1 (AED1)**
