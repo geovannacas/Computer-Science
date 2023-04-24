@@ -18,7 +18,7 @@ int main(){
         }
     }
 
-    printf("Existem %d números que existem tanto no vetor quanto na matriz.\n", n);
+    printf("Há %d números que existem tanto no vetor quanto na matriz.\n", n);
 
     return 0;
 }
