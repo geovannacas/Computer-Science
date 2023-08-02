@@ -1,0 +1,12 @@
+1. Defina com suas palavras o significado de:
+
+a. Abstração:
+    É um modo de simplificar questões mais complexas, colocando em destaque informações essenciais e mais importantes para uma questão ou situação específica.
+    Assim, facilita a resolução de problemas por desmembrar informações complexas em mais simples e específicas.
+
+b. Tipo de dados:
+    São tipos de valores que alguma variável pode ser como, por exemplo: inteiro, float, string ou booleano. Além de um conjunto de operações que podem ser realizadas com essa variável.
+
+c. Tipo abstrato de dados:
+    É uma forma de definir métodos ou funções que podem ser aplicados ao dados de uma forma lógica, manipulando-os de forma eficiente por abstração.
+
