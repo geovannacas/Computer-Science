@@ -1,3 +1,4 @@
+
 #include "tad.h"
 
 int main() {
@@ -12,12 +13,8 @@ int main() {
     printf("lista original: ");
     ImprimirLista(&lista);
 
-    OrdenarPorSelecao(&lista);
-    printf("lista ordenada por selecao: ");
-    ImprimirLista(&lista);
-
-    OrdenarPorInsercao(&lista);
-    printf("lista ordenada por inserção: ");
+    Quicksort(&lista, 0, lista.indice - 1);
+    printf("lista ordenada por quick-sort: ");
     ImprimirLista(&lista);
 
     return 0;

@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #define MAX_SIZE 100 
 
 typedef struct {
@@ -16,6 +16,6 @@ void Inicializar(Lista *lista);
 int ListaVazia(Lista *lista);
 int ListaCheia(Lista *lista);
 void Inserir(Lista *lista, char nome[50]);
-void OrdenarPorSelecao(Lista *lista);
-void OrdenarPorInsercao(Lista *lista);
 void ImprimirLista(Lista* lista);
+void Quicksort(Lista *lista, int inicio, int fim);
+int Particionar(Lista *lista, int inicio, int fim);

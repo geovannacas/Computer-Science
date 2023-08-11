@@ -1,97 +1,60 @@
 #include "tad.h"
 
-void Inicializar(Fila *fila){
-    fila->inicio = NULL;
-    fila->final = NULL;
+void Inicializar(Lista *lista) {
+    lista->indice = 0;
 }
 
-int FilaVazia(Fila *fila){
-    return (fila->inicio == NULL);
+int ListaVazia(Lista *lista) {
+    return lista->indice == 0;
 }
 
-void Inserir(Fila *fila, char nome[50]){
-    No *aux = (No*)malloc(sizeof(No));
-    strcpy(aux->nome, nome);
-    aux->proximo = NULL;
+int ListaCheia(Lista *lista) {
+    return lista->indice == MAX_SIZE;
+}
 
-    if(FilaVazia(fila)){
-        fila->inicio = aux;
-        fila->final = aux;
-    } else{
-        fila->final->proximo = aux;
-        fila->final = aux;
+void Inserir(Lista *lista, char nome[50]) {
+    if (!ListaCheia(lista)) {
+        strcpy(lista->elementos[lista->indice].nome, nome);
+        lista->indice++;
     }
 }
 
-void OrdenarPorSelecao(Fila* fila) {
-    if (FilaVazia(fila) || fila->inicio == fila->final) {
-        return; // Nada para ordenar ou apenas um elemento na fila.
-    }
+void OrdenarPorSelecao(Lista *lista) {
+    for (int i = 0; i < lista->indice - 1; i++) {
+        int min = i;
 
-    No* i = fila->inicio;
-    while (i->proximo != NULL) {
-        No* minimo = i;
-        No* j = i->proximo;
-
-        while (j != NULL) {
-            if (strcmp(j->nome, minimo->nome) < 0) {
-                minimo = j;
+        for (int j = i + 1; j < lista->indice; j++) {
+            if (strcmp(lista->elementos[j].nome, lista->elementos[min].nome) < 0) {
+                min = j;
             }
-            j = j->proximo;
         }
 
-        if (minimo != i) {
-            char temp[50];
-            strcpy(temp, i->nome);
-            strcpy(i->nome, minimo->nome);
-            strcpy(minimo->nome, temp);
+        if (min != i) {
+            Item temp = lista->elementos[i];
+            lista->elementos[i] = lista->elementos[min];
+            lista->elementos[min] = temp;
         }
-
-        i = i->proximo;
     }
 }
 
-void OrdenarPorInsercao(Fila* fila) {
-    if (FilaVazia(fila) || fila->inicio == fila->final) {
-        return; // Nada para ordenar ou apenas um elemento na fila.
-    }
+void OrdenarPorInsercao(Lista *lista) {
+    for (int i = 1; i < lista->indice; i++) {
+        Item chave = lista->elementos[i];
+        int j = i - 1;
 
-    No* i = fila->inicio->proximo;
-    while (i != NULL) {
-        char chave[50];
-        strcpy(chave, i->nome);
-
-        No* j = i->proximo;
-        No* prev = i;
-
-        while (j != NULL && strcmp(j->nome, chave) < 0) {
-            strcpy(prev->nome, j->nome);
-            prev = j;
-            j = j->proximo;
+        while (j >= 0 && strcmp(lista->elementos[j].nome, chave.nome) > 0) {
+            lista->elementos[j + 1] = lista->elementos[j];
+            j--;
         }
 
-        strcpy(prev->nome, chave);
-
-        i = i->proximo;
+        lista->elementos[j + 1] = chave;
     }
 }
 
-void ImprimirFila(Fila* fila) {
-    No* atual = fila->inicio;
-    while (atual != NULL) {
-        printf("%s ", atual->nome);
-        atual = atual->proximo;
+
+void ImprimirLista(Lista *lista) {
+    for (int i = 0; i < lista->indice; i++) {
+        printf("%s ", lista->elementos[i].nome);
     }
     printf("\n");
-}
-
-void LiberarFila(Fila* fila) {
-    No* atual = fila->inicio;
-    while (atual != NULL) {
-        No* proximo = atual->proximo;
-        free(atual);
-        atual = proximo;
-    }
-    fila->inicio = NULL;
-    fila->final = NULL;
 }
