@@ -3,8 +3,8 @@
 ************ secao 2.8.2 doDragon book. */
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
-#include "g-v1.h"
+#include <string.h>
+#include "sint.h"
 
 extern int yylex();
 extern int yylineno; 
@@ -112,7 +112,7 @@ int main(int argc, char** argv){
 
         if(argc != 2) {
                 // ERRO: [MENSAGEM] [LINHA]
-                fprintf(stderr, "ERRO: Uso correto: ./g-v1 teste.g %d\n", 0); 
+                fprintf(stderr, "ERRO: Uso correto: ./g-v1 arquivo.g %d\n", 0); 
                 exit(1);
         } 
 
