@@ -63,13 +63,13 @@ ESPACO [ \t\r]+
 ","             { return ','; }
 ":"             { return ':'; }
 
-{ID}            { return IDENTIFICADOR; }
-[+-]?{DIGITO}+  { return INTCONST; }
+{ID}            { yylval.id = strdup(yytext); return IDENTIFICADOR;}
+[+-]?{DIGITO}+  { yylval.id = strdup(yytext); return INTCONST; }
 
-"'"({LETRA}|{DIGITO}|"\\n"|"\\t"|.)"'" { return CARCONST; }
+"'"({LETRA}|{DIGITO}|"\\n"|"\\t"|.)"'" { yylval.id = strdup(yytext); return CARCONST; }
 
 "\""            { BEGIN(CADEIA); }
-<CADEIA>[^\"\n]* { }
+<CADEIA>[^\"\n]* { yylval.id = strdup(yytext); }
 <CADEIA>\"      { BEGIN(INITIAL); return CADEIACARACTERES; }
 <CADEIA>\n      { erro_lexico("CADEIA DE CARACTERES OCUPA MAIS DE UMA LINHA", yylineno - 1); }
 <CADEIA><<EOF>> { erro_lexico("CADEIA DE CARACTERES OCUPA MAIS DE UMA LINHA", yylineno); }
