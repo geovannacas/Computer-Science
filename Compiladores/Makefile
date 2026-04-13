@@ -1,23 +1,83 @@
-# O alvo principal gera o executável g-v1
-g-v1: sint.o lex.o
-	gcc sint.o lex.o -o g-v1 -lfl
+# Makefile para G-V1 - Compilador da Linguagem Goianinha
+# Versão 1.0 - Projeto de Compiladores
 
-# Compila o arquivo C do sintático para objeto
-sint.o: sint.c
-	gcc -c sint.c -o sint.o
+CC = gcc
+FLEX = flex
+BISON = bison
+CFLAGS = -Wall -Wextra -g
+LDFLAGS = -lfl
 
-# Gera o código C e o header sint.h a partir do Bison
-sint.c: sint.y
-	bison -d -osint.c sint.y
+# Executável final
+TARGET = g-v1
 
-# Compila o arquivo C do léxico para objeto
-lex.o: lex.c
-	gcc -c lex.c -o lex.o
+# Arquivos objeto
+OBJECTS = sint.o lex.o ast.o
 
-# Gera o código C do léxico a partir do Flex
-lex.c: lex.l
-	flex -olex.c lex.l
+# Arquivos gerados
+GENERATED = sint.c sint.h lex.c
 
-# Limpa todos os arquivos gerados
+# Arquivos de entrada
+FLEX_INPUT = lex.l
+BISON_INPUT = sint.y
+AST_INPUT = ast.c
+
+# Header files
+HEADERS = tipos.h
+
+# Alvo principal
+all: $(TARGET)
+
+# Gerar executável
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "✓ Compilação concluída com sucesso!"
+	@echo "  Executável: ./$(TARGET)"
+	@echo "  Uso: ./$(TARGET) arquivo.g"
+
+# Compilar arquivo objeto sint.o
+sint.o: sint.c $(HEADERS)
+	$(CC) $(CFLAGS) -c sint.c -o sint.o
+
+# Gerar sint.c e sint.h a partir de sint.y
+sint.c sint.h: $(BISON_INPUT)
+	$(BISON) -d -o sint.c $(BISON_INPUT)
+	@echo "✓ Arquivo sintático gerado: sint.c e sint.h"
+
+# Compilar arquivo objeto lex.o
+lex.o: lex.c sint.h
+	$(CC) $(CFLAGS) -c lex.c -o lex.o
+
+# Gerar lex.c a partir de lex.l
+lex.c: $(FLEX_INPUT)
+	$(FLEX) -o lex.c $(FLEX_INPUT)
+	@echo "✓ Analisador léxico gerado: lex.c"
+
+# Compilar arquivo objeto ast.o
+ast.o: $(AST_INPUT) $(HEADERS)
+	$(CC) $(CFLAGS) -c $(AST_INPUT) -o ast.o
+
+# Limpeza de arquivos gerados
 clean:
-	rm -f *.o g-v1 sint.c sint.h lex.c
+	rm -f $(OBJECTS) $(TARGET) $(GENERATED)
+	@echo "✓ Arquivos limpos"
+
+# Limpeza completa (volta ao estado original)
+distclean: clean
+	@echo "✓ Limpeza completa realizada"
+
+# Recompilação forçada
+rebuild: clean all
+
+# Phony targets (não são arquivos reais)
+.PHONY: all clean distclean rebuild
+
+# Informações de debug
+info:
+	@echo "=== Informações de Compilação G-V1 ==="
+	@echo "Compilador: $(CC)"
+	@echo "Flags C: $(CFLAGS)"
+	@echo "Flex: $(FLEX)"
+	@echo "Bison: $(BISON)"
+	@echo "Executável: $(TARGET)"
+	@echo "Objeto: $(OBJECTS)"
+	@echo "Arquivos gerados: $(GENERATED)"
