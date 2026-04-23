@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tipos.h"
+#include "semantico.h"
+#include "gerador.h"
 
 extern int yylex();
 extern int yylineno;
@@ -248,7 +250,8 @@ int main(int argc, char** argv) {
     }
 
     if (yyparse() == 0 && raiz != NULL) {
-        imprimeArvore(raiz, 0);
+        analisaSemantico(raiz);
+        geraCodigoMIPS(raiz);
     }
 
     fclose(yyin);

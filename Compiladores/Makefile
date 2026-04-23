@@ -11,7 +11,7 @@ LDFLAGS = -lfl
 TARGET = g-v1
 
 # Arquivos objeto
-OBJECTS = sint.o lex.o ast.o
+OBJECTS = sint.o lex.o ast.o tabsim.o semantico.o gerador.o
 
 # Arquivos gerados
 GENERATED = sint.c sint.h lex.c
@@ -22,7 +22,7 @@ BISON_INPUT = sint.y
 AST_INPUT = ast.c
 
 # Header files
-HEADERS = tipos.h
+HEADERS = tipos.h tabsim.h semantico.h gerador.h
 
 # Alvo principal
 all: $(TARGET)
@@ -55,6 +55,18 @@ lex.c: $(FLEX_INPUT)
 # Compilar arquivo objeto ast.o
 ast.o: $(AST_INPUT) $(HEADERS)
 	$(CC) $(CFLAGS) -c $(AST_INPUT) -o ast.o
+
+# Compilar tabela de simbolos
+tabsim.o: tabsim.c tabsim.h
+	$(CC) $(CFLAGS) -c tabsim.c -o tabsim.o
+
+# Compilar analisador semantico
+semantico.o: semantico.c semantico.h tipos.h tabsim.h
+	$(CC) $(CFLAGS) -c semantico.c -o semantico.o
+
+# Compilar gerador de codigo MIPS
+gerador.o: gerador.c gerador.h tipos.h tabsim.h
+	$(CC) $(CFLAGS) -c gerador.c -o gerador.o
 
 # Limpeza de arquivos gerados
 clean:
