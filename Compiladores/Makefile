@@ -17,8 +17,8 @@ OBJECTS = sint.o lex.o ast.o tabsim.o semantico.o gerador.o
 GENERATED = sint.c sint.h lex.c
 
 # Arquivos de entrada
-FLEX_INPUT = lex.l
-BISON_INPUT = sint.y
+FLEX_INPUT = g-v1.l
+BISON_INPUT = g-v1.y
 AST_INPUT = ast.c
 
 # Header files

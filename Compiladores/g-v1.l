@@ -5,7 +5,7 @@
 #include "sint.h"
 
 void erro_lexico(const char* msg, int linha) {
-    fprintf(stdout, "ERRO: %s %d\n", msg, linha);
+    fprintf(stderr, "ERRO: %s %d\n", msg, linha);
     exit(1);
 }
 %}
