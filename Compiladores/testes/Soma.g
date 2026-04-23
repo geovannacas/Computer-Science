@@ -15,7 +15,7 @@ principal
 		{
 			soma,i,an: int;
 		}
-		{  
+		{
 			soma=a1;
 			i=1;
 			an=a1;
@@ -25,12 +25,11 @@ principal
 				i=i+1;
 				soma = soma + an;
 			}
+			escreva "O valor da soma da progressao aritmetica e: ";
+			escreva soma;
+			novalinha;
+			novalinha;
 		}
-		
-		escreva "O valor da soma da progressao aritmetica e: ";
-		escreva soma;
-		novalinha;
-		novalinha;
 	}
 	 
 

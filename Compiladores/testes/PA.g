@@ -26,13 +26,12 @@ valor da razao da progressao.*/
 				an=an+r;
 				i=i+1;
 			}
+			escreva "O valor do elemento ";
+			escreva n;
+			escreva " da progressao e: ";
+			escreva an;
+			novalinha;
 		}
-		
-		escreva "O valor do elemento ";
-		escreva n;
-		escreva " da progressao e: ";
-		escreva an;
-		novalinha;
 	}
 	 
 
