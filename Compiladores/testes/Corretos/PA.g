@@ -32,6 +32,8 @@ valor da razao da progressao.*/
 			escreva an;
 			novalinha;
 		}
+		
+		
 	}
 	 
 
