@@ -92,7 +92,7 @@ ESPACO  [ \t\r]+
 
 <<EOF>>     {
                 if (YY_START == CADEIA)
-                    erro_lexico("CADEIA DE CARACTERES NAO TERMINA", yylineno);
+                    erro_lexico("CADEIA DE CARACTERES OCUPA MAIS DE UMA LINHA", yylineno);
                 if (YY_START == COMENTARIO)
                     erro_lexico("COMENTARIO NAO TERMINA", yylineno);
                 return 0;

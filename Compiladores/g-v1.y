@@ -30,7 +30,7 @@ void yyerror(char const *s);
 %token INT CAR OU E IGUAL DIFERENTE MAIORIGUAL MENORIGUAL
 %token <id> IDENTIFICADOR CADEIACARACTERES CARCONST INTCONST
 
-%type <node> Bloco VarSection ListaDeclVar DeclVarTail Tipo
+%type <node> Bloco VarSection ListaDeclVar DeclVar Tipo
 %type <node> ListaComando Comando
 %type <node> Expr OrExpr AndExpr EqExpr DesigExpr AddExpr MulExpr UnExpr PrimExpr
 
@@ -66,7 +66,7 @@ VarSection : '{' ListaDeclVar '}'
  * Todos os IDs da mesma linha compartilham o mesmo Tipo.
  * Nos NO_DECL_VAR sao encadeados por ->proximo.
  */
-ListaDeclVar : IDENTIFICADOR DeclVarTail ':' Tipo ';' ListaDeclVar
+ListaDeclVar : IDENTIFICADOR DeclVar ':' Tipo ';' ListaDeclVar
                  {
                      NoAST* decl = criaNo(NO_DECL_VAR, $1, yylineno, $4, NULL, NULL);
                      free($1);
@@ -80,7 +80,7 @@ ListaDeclVar : IDENTIFICADOR DeclVarTail ':' Tipo ';' ListaDeclVar
                      if ($6 != NULL) adicionaIrmao(decl, $6);
                      $$ = decl;
                  }
-             | IDENTIFICADOR DeclVarTail ':' Tipo ';'
+             | IDENTIFICADOR DeclVar ':' Tipo ';'
                  {
                      NoAST* decl = criaNo(NO_DECL_VAR, $1, yylineno, $4, NULL, NULL);
                      free($1);
@@ -95,9 +95,9 @@ ListaDeclVar : IDENTIFICADOR DeclVarTail ':' Tipo ';' ListaDeclVar
 ;
 
 /* Zero ou mais ", IDENTIFICADOR" extras na mesma linha de declaracao */
-DeclVarTail : /* vazio */
+DeclVar : /* vazio */
                 { $$ = NULL; }
-            | ',' IDENTIFICADOR DeclVarTail
+            | ',' IDENTIFICADOR DeclVar
                 {
                     /* tipo sera preenchido pelo pai apos reducao */
                     NoAST* decl = criaNo(NO_DECL_VAR, $2, yylineno, NULL, NULL, NULL);
